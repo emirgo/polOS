@@ -3,7 +3,7 @@
 
     Description: I test functionality before
     implementing these in my main projects.
-    This repository does not guarantee aything
+    This repository does not guarantee anything
     and is not representative of my professional 
     work 1:1.
     I do not perform error checks or write unit
@@ -14,29 +14,19 @@
     
     NO CubeMX whatsoever.
 */
-#include "main.h"
 
-void LED_GREEN_Init();
+#include "main.h"
+#include "blink.h"
 
 int main(void) {
     HAL_Init();
+
     LED_GREEN_Init();
 
     while (1)
     {
-        HAL_GPIO_TogglePin(LED_GREEN_PORT, LED_GREEN_PIN);
-        HAL_Delay(1000);
+        LED_GREEN_toggle();
     }
-}
-
-void LED_GREEN_Init() {
-    LED_GPIO_CLK_ENABLE();
-    GPIO_InitTypeDef GPIO_InitStruct;
-    GPIO_InitStruct.Pin = LED_GREEN_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    HAL_GPIO_Init(LED_GREEN_PORT, &GPIO_InitStruct);
 }
 
 void SysTick_Handler(void) {
