@@ -1,4 +1,6 @@
 # polOS
+![buildpassing](https://i.ibb.co/kmngm90/pol-OS.png)
+<br><br><br>
 ![buildpassing](https://img.shields.io/badge/build-passing-brightgreen)
 <br>
 <strong>Author:</strong> Emirhan Gocturk
