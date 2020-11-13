@@ -1,5 +1,6 @@
 # polOS
 ![buildpassing](https://img.shields.io/badge/build-passing-brightgreen)
+<br>
 <strong>Author:</strong> Emirhan Gocturk
 <br><br>
 <strong>Description:</strong> I test functionality before
