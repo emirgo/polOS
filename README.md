@@ -2,6 +2,8 @@
 ![buildpassing](https://img.shields.io/badge/build-passing-brightgreen)
 <br>
 <strong>Author:</strong> Emirhan Gocturk
+<br>
+[polOS Trello](https://trello.com/b/NjV1Qkpz/polos)
 <br><br>
 <strong>Description:</strong> I test functionality before
 implementing these in my main projects.
