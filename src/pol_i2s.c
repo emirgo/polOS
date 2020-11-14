@@ -8,28 +8,104 @@
 
 #include "pol_i2s.h"
 
-// under active development [tre:100]
+void pol_i2s_gpio_init()
+{
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
+    // enable clocks for
+    // A, B, C ports
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+}
+
+void pol_i2s_dma_init()
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
+}
+
+// under active development [tre:101]
 void pol_i2s_init(void)
 {
-    I2S_InitTypeDef pcm5102_conf;
-    I2S_HandleTypeDef pcm5102;
-    GPIO_InitTypeDef SDIN;
-    GPIO_InitTypeDef SCLK;
-    GPIO_InitTypeDef LRCLK;
-    GPIO_InitTypeDef MCLK;
-    uint16_t buf[2] = {0x1245, 0x6842};
+    hi2s2.Instance = SPI2;
+    hi2s2.Init.Mode = I2S_MODE_MASTER_TX;
+    hi2s2.Init.Standard = I2S_STANDARD_PHILIPS;
+    hi2s2.Init.DataFormat = I2S_DATAFORMAT_16B;
+    hi2s2.Init.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
+    hi2s2.Init.AudioFreq = I2S_AUDIOFREQ_48K;
+    hi2s2.Init.CPOL = I2S_CPOL_LOW;
+    hi2s2.Init.ClockSource = I2S_CLOCK_PLL;
+    hi2s2.Init.FullDuplexMode = I2S_FULLDUPLEXMODE_DISABLE;
+    if (HAL_I2S_Init(&hi2s2) != HAL_OK)
+    {
+        // routed to mainh
+        Error_Handler();
+    }
 
-    pcm5102_conf.Mode = I2S_MODE_MASTER_TX;
-    pcm5102_conf.Standard = I2S_STANDARD_PHILIPS;
-    pcm5102_conf.DataFormat = I2S_DATAFORMAT_16B;
-    pcm5102_conf.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
-    pcm5102_conf.AudioFreq = I2S_AUDIOFREQ_48K;
-    pcm5102_conf.CPOL = I2S_CPOL_LOW;
-    pcm5102_conf.ClockSource = I2S_CLOCK_PLL;
-    pcm5102_conf.FullDuplexMode = I2S_FULLDUPLEXMODE_DISABLE;
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    if(hi2s2.Instance==SPI2)
+    {
+        /* USER CODE BEGIN SPI2_MspInit 0 */
 
-    // SPI3 isn't initialized yet [tre:103]
-    pcm5102.Instance = SPI3;
-    pcm5102.Init = pcm5102_conf;
+        /* USER CODE END SPI2_MspInit 0 */
+        /* Peripheral clock enable */
+        __HAL_RCC_SPI2_CLK_ENABLE();
 
+        __HAL_RCC_GPIOC_CLK_ENABLE();
+        __HAL_RCC_GPIOA_CLK_ENABLE();
+        __HAL_RCC_GPIOB_CLK_ENABLE();
+        /**I2S2 GPIO Configuration    
+        PC1     ------> I2S2_SD
+        PA6     ------> I2S2_MCK
+        PB10     ------> I2S2_CK
+        PB12     ------> I2S2_WS 
+        */
+        GPIO_InitStruct.Pin = GPIO_PIN_1;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        GPIO_InitStruct.Alternate = GPIO_AF7_SPI2;
+        HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+        GPIO_InitStruct.Pin = GPIO_PIN_6;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        GPIO_InitStruct.Alternate = GPIO_AF6_SPI2;
+        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+        GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_12;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+        HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+        /* I2S2 DMA Init */
+        /* SPI2_TX Init */
+        hdma_spi2_tx.Instance = DMA1_Stream4;
+        hdma_spi2_tx.Init.Channel = DMA_CHANNEL_0;
+        hdma_spi2_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+        hdma_spi2_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+        hdma_spi2_tx.Init.MemInc = DMA_MINC_ENABLE;
+        hdma_spi2_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+        hdma_spi2_tx.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+        hdma_spi2_tx.Init.Mode = DMA_CIRCULAR;
+        hdma_spi2_tx.Init.Priority = DMA_PRIORITY_LOW;
+        hdma_spi2_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+        if (HAL_DMA_Init(&hdma_spi2_tx) != HAL_OK)
+        {
+            // routed to mainh
+            Error_Handler();
+        }
+    }
+
+    // DMA linkage hotfix [tre:107]
+    __HAL_LINKDMA(&hi2s2,hdmatx,hdma_spi2_tx);
 }

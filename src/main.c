@@ -16,9 +16,17 @@
 */
 
 #include "main.h"
+#include "pol_i2s.h"
 
 int main(void) {
+
     HAL_Init();
+    SystemClock_Config();
+
+    // initialize i2s
+    pol_i2s_gpio_init();
+    pol_i2s_dma_init();
+    pol_i2s_init();
 
     while (1)
     {
