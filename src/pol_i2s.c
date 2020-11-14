@@ -104,6 +104,6 @@ void pol_i2s_init(void)
         }
     }
 
-    // issue to be resolved
+    // DMA linkage hotfix [tre:107]
     __HAL_LINKDMA(&hi2s2,hdmatx,hdma_spi2_tx);
 }
