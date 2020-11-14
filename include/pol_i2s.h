@@ -13,6 +13,12 @@
 #include "stm32f4xx_hal.h"
 #endif
 
+// private variables
+I2S_HandleTypeDef hi2s2;
+DMA_HandleTypeDef hdma_spi2_tx;
+
+void pol_i2s_gpio_init(void);
+void pol_i2s_dma_init(void);
 void pol_i2s_init(void);
 
 #endif

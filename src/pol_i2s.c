@@ -8,9 +8,30 @@
 
 #include "pol_i2s.h"
 
+void pol_i2s_gpio_init()
+{
+    // enable clocks for
+    // A, B, C ports
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+}
+
+void pol_i2s_dma_init()
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
+}
+
 // under active development [tre:100]
 void pol_i2s_init(void)
 {
+    /*
     I2S_InitTypeDef pcm5102_conf;
     I2S_HandleTypeDef pcm5102;
     GPIO_InitTypeDef SDIN;
@@ -31,5 +52,6 @@ void pol_i2s_init(void)
     // SPI3 isn't initialized yet [tre:103]
     pcm5102.Instance = SPI3;
     pcm5102.Init = pcm5102_conf;
+    */
 
 }
