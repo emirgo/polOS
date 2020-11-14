@@ -16,16 +16,13 @@
 */
 
 #include "main.h"
-#include "blink.h"
 
 int main(void) {
     HAL_Init();
 
-    LED_GREEN_Init();
-
     while (1)
     {
-        LED_GREEN_toggle();
+        
     }
 }
 
