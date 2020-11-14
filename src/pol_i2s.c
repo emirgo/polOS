@@ -28,7 +28,7 @@ void pol_i2s_dma_init()
   HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
 }
 
-// under active development [tre:100]
+// under active development [tre:101]
 void pol_i2s_init(void)
 {
     hi2s2.Instance = SPI2;

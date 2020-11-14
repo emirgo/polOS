@@ -4,6 +4,11 @@
     Author: Emirhan Gocturk
 
     Description: i2s library
+
+    **WARNING**
+    Users/developers can keep track of this
+    library under [100]~[199] at the time of
+    development on Trello.
 */
 
 #ifndef POL_I2S_H
