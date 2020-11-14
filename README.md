@@ -2,6 +2,7 @@
 ![buildpassing](https://i.ibb.co/kmngm90/pol-OS.png)
 <br><br><br>
 ![buildpassing](https://img.shields.io/badge/build-passing-brightgreen)
+![coverage](https://img.shields.io/badge/coverage-0%25-%20red)
 <br>
 <strong>Author:</strong> Emirhan Gocturk
 <br>
