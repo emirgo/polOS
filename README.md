@@ -1,7 +1,7 @@
 # polOS
 ![buildpassing](https://i.ibb.co/kmngm90/pol-OS.png)
 <br><br><br>
-![buildpassing](https://travis-ci.org/emirgo/polOS.svg?branch=main)
+![buildpassing](https://travis-ci.org/emirgo/polOS.svg?branch=i2s)
 <br>
 <strong>Author:</strong> Emirhan Gocturk
 <br>
