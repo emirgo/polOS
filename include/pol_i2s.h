@@ -28,6 +28,8 @@ DMA_HandleTypeDef hdma_spi2_tx;
 void pol_i2s_gpio_init(void);
 // Initialize DMA used in this example
 void pol_i2s_dma_init(void);
+// Initialize I2S_2 handler
+void pol_i2s_handle_init(void);
 // Initialize all
 void pol_i2s_init(void);
 
