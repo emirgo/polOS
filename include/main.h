@@ -11,11 +11,14 @@
 
 #include "stm32f4xx_hal.h"
 
+// Global error handler
 void Error_Handler(void)
 {
     // nothing yet
 }
 
+// Initializes systemclock according to application needs.
+// What's currently set is "default"
 void SystemClock_Config(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};

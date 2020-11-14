@@ -19,11 +19,16 @@
 #endif
 
 // private variables
+// I2S_2 handler
 I2S_HandleTypeDef hi2s2;
+// DMA SPI2 handler
 DMA_HandleTypeDef hdma_spi2_tx;
 
+// Initialize GPIOs used in this example
 void pol_i2s_gpio_init(void);
+// Initialize DMA used in this example
 void pol_i2s_dma_init(void);
+// Initialize all
 void pol_i2s_init(void);
 
 #endif

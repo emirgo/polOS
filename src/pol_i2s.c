@@ -8,6 +8,7 @@
 
 #include "pol_i2s.h"
 
+// Initialize RCC for GPIO A,B,C
 void pol_i2s_gpio_init()
 {
     __HAL_RCC_SYSCFG_CLK_ENABLE();
@@ -19,6 +20,7 @@ void pol_i2s_gpio_init()
     __HAL_RCC_GPIOB_CLK_ENABLE();
 }
 
+// Initialize DMA
 void pol_i2s_dma_init()
 {
   /* DMA controller clock enable */
@@ -31,8 +33,11 @@ void pol_i2s_dma_init()
 }
 
 // under active development [tre:101]
+// Initialize various peripherals regarding i2s_2
+// Read function for details
 void pol_i2s_init(void)
 {
+    // Init settings for I2S_2 handler
     hi2s2.Instance = SPI2;
     hi2s2.Init.Mode = I2S_MODE_MASTER_TX;
     hi2s2.Init.Standard = I2S_STANDARD_PHILIPS;
@@ -51,9 +56,6 @@ void pol_i2s_init(void)
     GPIO_InitTypeDef GPIO_InitStruct = {0};
     if(hi2s2.Instance==SPI2)
     {
-        /* USER CODE BEGIN SPI2_MspInit 0 */
-
-        /* USER CODE END SPI2_MspInit 0 */
         /* Peripheral clock enable */
         __HAL_RCC_SPI2_CLK_ENABLE();
 
