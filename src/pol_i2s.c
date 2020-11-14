@@ -44,6 +44,7 @@ void pol_i2s_init(void)
     hi2s2.Init.FullDuplexMode = I2S_FULLDUPLEXMODE_DISABLE;
     if (HAL_I2S_Init(&hi2s2) != HAL_OK)
     {
+        // routed to mainh
         Error_Handler();
     }
 
@@ -100,6 +101,7 @@ void pol_i2s_init(void)
         hdma_spi2_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
         if (HAL_DMA_Init(&hdma_spi2_tx) != HAL_OK)
         {
+            // routed to mainh
             Error_Handler();
         }
     }
