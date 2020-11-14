@@ -1,7 +1,20 @@
+/*
+    Copyright @ polseq B.V.
+
+    Author: Emirhan Gocturk
+
+    Description: main component
+*/
+
 #ifndef MAIN_H
 #define MAIN_H
 
 #include "stm32f4xx_hal.h"
+
+void Error_Handler(void)
+{
+    // nothing yet
+}
 
 void SystemClock_Config(void)
 {
